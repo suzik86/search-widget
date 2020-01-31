@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Form, Col } from 'react-bootstrap';
+import Select from 'react-select';
 
 
 class FiltersArea extends React.Component {
@@ -11,15 +12,17 @@ class FiltersArea extends React.Component {
       applySectionIsOpen: false, 
       categorySelectedValues: []    
     }  
+    this.categories = [{value:'AM', label:'AM'},{value:'RT', label:'RT'},{value:'ML', label:'ML'},{value:'SX', label:'SX'},{value:'MG', label:'MG'}]
+    this.prices = [{value:'low', label:'Low'},{value:'medium', label:'Medium'},{value:'high', label:'High'}]
   };
 
-  handlePriceSelect = (e) => {    
-    this.setState({selectedValues: this.state.selectedValues.concat(e.target.value)});
+  handlePriceSelect = (value) => {    
+    this.setState({selectedValues: this.state.selectedValues.concat(value.target.value)});
        
   }
 
-  handleCategorySelect = (e) => {      
-    this.setState({selectedValues: this.state.selectedValues.concat(e.target.value)});   
+  handleCategorySelect = (values) => {      
+    this.setState({selectedValues: values.map(a => a.value)});   
   }
 
   handleApplyClick = () => {
@@ -39,21 +42,16 @@ class FiltersArea extends React.Component {
           <Form.Row className="row">
               <Col>
                   <label htmlFor="category-input">{this.props.categoryLabel}</label>
-                  <select id="category-input"  name="category" multiple onChange={this.handleCategorySelect}>
-                        <option value="AM">AM</option>
-                        <option value="RT">RT</option>
-                        <option value="ML">ML</option>
-                        <option value="SX">SX</option>
-                        <option value="MG">MG</option>
-                  </select>                    
+                  <Select id="category-input" isMulti options={this.categories} onChange={this.handleCategorySelect} />                                     
               </Col>          
               <Col>
                   <label htmlFor="price-input">{this.props.priceLabel}</label>
-                  <select id="price-input" name="price" onChange={this.handlePriceSelect}>
+                  {/* <select id="price-input" name="price" onChange={this.handlePriceSelect}>
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>                    
-                  </select>
+                  </select> */}
+                  <Select options={this.prices} onChange={this.handlePriceSelect} />
               </Col>
           </Form.Row>
            

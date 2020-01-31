@@ -8,31 +8,29 @@ class FiltersArea extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedValues: [],
-      applySectionIsOpen: false, 
-      categorySelectedValues: []    
-    }  
+      price: '',
+      categorySelectedValues: [],
+      selectedValues: []
+    }
     this.categories = [{value:'AM', label:'AM'},{value:'RT', label:'RT'},{value:'ML', label:'ML'},{value:'SX', label:'SX'},{value:'MG', label:'MG'}]
     this.prices = [{value:'low', label:'Low'},{value:'medium', label:'Medium'},{value:'high', label:'High'}]
   };
 
   handlePriceSelect = (value) => {    
-    this.setState({selectedValues: this.state.selectedValues.concat(value.target.value)});
-       
+    this.setState({price: value.value});
   }
 
   handleCategorySelect = (values) => {      
-    this.setState({selectedValues: values.map(a => a.value)});   
+    this.setState({categorySelectedValues: values.map(a => a.value)});   
   }
 
   handleApplyClick = () => {
-    this.setState({applySectionIsOpen: !this.state.applySectionIsOpen});
+    this.setState({selectedValues: this.state.categorySelectedValues.concat(this.state.price)});
   }
 
   handleDiscardClick = () => {
     this.setState({
-            selectedValues: [],
-            applySectionIsOpen: !this.state.applySectionIsOpen
+            selectedValues: []
           });    
   }
 
@@ -42,15 +40,10 @@ class FiltersArea extends React.Component {
           <Form.Row className="row">
               <Col>
                   <label htmlFor="category-input">{this.props.categoryLabel}</label>
-                  <Select id="category-input" isMulti options={this.categories} onChange={this.handleCategorySelect} />                                     
+                  <Select isMulti options={this.categories} onChange={this.handleCategorySelect} />
               </Col>          
               <Col>
                   <label htmlFor="price-input">{this.props.priceLabel}</label>
-                  {/* <select id="price-input" name="price" onChange={this.handlePriceSelect}>
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>                    
-                  </select> */}
                   <Select options={this.prices} onChange={this.handlePriceSelect} />
               </Col>
           </Form.Row>
@@ -71,10 +64,7 @@ class FiltersArea extends React.Component {
                   {this.props.discardButtonLabel}
             </Button>            
           </Form.Row>
-          { this.state.applySectionIsOpen && 
-         
-          this.state.selectedValues.map(item => <div key={item} className="criterion">#{item}</div>)}         
-
+          { this.state.selectedValues.map(item => <div key={item} className="criterion">#{item}</div>)}         
         </section>
       )
   }

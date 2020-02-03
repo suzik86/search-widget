@@ -42,6 +42,10 @@ class SearchBox extends React.Component {
         this.setState({filtersIsOpen: !this.state.filtersIsOpen});
     }
 
+    clearInput = () => {
+        this.setState({searchInput: ''});
+    } 
+
     render(){
 
         return( 
@@ -49,7 +53,7 @@ class SearchBox extends React.Component {
                 <Form.Row className="row">
                     <Col>
                         <label htmlFor="search-input">{this.state.searchLabel}</label>
-                        <FormControl id="search-input" aria-describedby="basic-addon3" onChange={this.handleSearchInput}/>                        
+                        <FormControl id="search-input" value = {this.state.searchInput} aria-describedby="basic-addon3" onChange={this.handleSearchInput}/>                        
                     </Col>
                     <Col>
                         <Button className="filters-btn" variant="primary" onClick={this.handleClick}>{this.state.filtersLabel}</Button> 
@@ -61,6 +65,7 @@ class SearchBox extends React.Component {
                                                     priceLabel={this.state.priceLabel} 
                                                     applyButtonLabel={this.state.applyButtonLabel}
                                                     discardButtonLabel={this.state.discardButtonLabel}
+                                                    clearInput={this.clearInput}
                                                     /> }   
             </Form>          
                        

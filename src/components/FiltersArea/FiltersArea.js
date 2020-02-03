@@ -34,7 +34,8 @@ class FiltersArea extends React.Component {
             selectedValues: [],
             price:  [],
             categorySelectedValues: []
-          });    
+          });  
+    this.props.clearInput();  
   }
 
   render() {

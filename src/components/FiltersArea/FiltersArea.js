@@ -68,7 +68,9 @@ class FiltersArea extends React.Component {
                   {this.props.discardButtonLabel}
             </Button>            
           </Form.Row>
-          { this.state.selectedValues.map(item => <div key={item} className="criterion">#{item}</div>)}         
+          <Form.Row>
+              { this.state.selectedValues[0] !== undefined &&  this.state.selectedValues.map(item => <div key={item + 1} className="criterion">#{item}</div>) }     
+          </Form.Row>              
         </section>
       )
   }

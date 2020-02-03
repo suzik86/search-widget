@@ -26,7 +26,11 @@ class FiltersArea extends React.Component {
 
   handleApplyClick = () => {
     const selectedCategories = this.state.categorySelectedValues.map(a => a.value);
-    this.setState({selectedValues: selectedCategories.concat(this.state.price.value)});
+    if (this.state.price.value !== undefined) {
+      this.setState({selectedValues: selectedCategories.concat(this.state.price.value)});
+    } else {
+      this.setState({selectedValues: selectedCategories});
+    }    
   }
 
   handleDiscardClick = () => {

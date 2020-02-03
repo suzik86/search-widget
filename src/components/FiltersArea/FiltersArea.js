@@ -8,7 +8,7 @@ class FiltersArea extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      price: '',
+      price: [],
       categorySelectedValues: [],
       selectedValues: []
     }
@@ -16,21 +16,24 @@ class FiltersArea extends React.Component {
     this.prices = [{value:'low', label:'Low'},{value:'medium', label:'Medium'},{value:'high', label:'High'}]
   };
 
-  handlePriceSelect = (value) => {    
-    this.setState({price: value.value});
+  handlePriceSelect = (selectedPrice) => {    
+    this.setState({price: selectedPrice});   
   }
 
   handleCategorySelect = (values) => {      
-    this.setState({categorySelectedValues: values.map(a => a.value)});   
+    this.setState({categorySelectedValues: values});   
   }
 
   handleApplyClick = () => {
-    this.setState({selectedValues: this.state.categorySelectedValues.concat(this.state.price)});
+    const selectedCategories = this.state.categorySelectedValues.map(a => a.value);
+    this.setState({selectedValues: selectedCategories.concat(this.state.price.value)});
   }
 
   handleDiscardClick = () => {
     this.setState({
-            selectedValues: []
+            selectedValues: [],
+            price:  [],
+            categorySelectedValues: []
           });    
   }
 
@@ -39,12 +42,12 @@ class FiltersArea extends React.Component {
         <section>
           <Form.Row className="row">
               <Col>
-                  <label htmlFor="category-input">{this.props.categoryLabel}</label>
-                  <Select isMulti options={this.categories} onChange={this.handleCategorySelect} />
+                  <label>{this.props.categoryLabel}</label>
+                  <Select isMulti value={this.state.categorySelectedValues} options={this.categories} onChange={this.handleCategorySelect} />
               </Col>          
               <Col>
-                  <label htmlFor="price-input">{this.props.priceLabel}</label>
-                  <Select options={this.prices} onChange={this.handlePriceSelect} />
+                  <label>{this.props.priceLabel}</label>
+                  <Select value={this.state.price} options={this.prices} onChange={this.handlePriceSelect} />
               </Col>
           </Form.Row>
            

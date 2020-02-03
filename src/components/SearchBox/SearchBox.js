@@ -52,7 +52,7 @@ class SearchBox extends React.Component {
                         <FormControl id="search-input" aria-describedby="basic-addon3" onChange={this.handleSearchInput}/>                        
                     </Col>
                     <Col>
-                        <Button variant="primary" onClick={this.handleClick}>{this.state.filtersLabel}</Button> 
+                        <Button className="filters-btn" variant="primary" onClick={this.handleClick}>{this.state.filtersLabel}</Button> 
                     </Col>
                 </Form.Row>
 
